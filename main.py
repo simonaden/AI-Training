@@ -55,3 +55,26 @@ async def run_merge_model():
     #model converter hf to gguf
 
 #create a new model with ollama and a ./Modelfile (Maybe you need to put the gguf in a shared folder with the docker so the docker ollama can run the model and not only the local version)
+
+
+
+
+
+@app.get("/server-test")
+async def run_server_test():
+    try:
+        #Path to the Script
+        script_path = os.path.join("scripts", "test.py")
+        #Trys running the script and getting the output
+        command = f"python {script_path}"
+        stream = os.popen(command)
+        output = stream.read()
+        return_code = stream.close()
+
+        if return_code is None:
+            return{"output": output, "status": "success"}
+        else:
+            return{"output": output, "status": "failed", "exit_code": return_code}
+        
+    except Exception as e:
+        return {"error": str(e), "status": "failed"}
