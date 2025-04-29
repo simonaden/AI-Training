@@ -35,7 +35,7 @@ async def export_model():
 async def run_merge_model():
     try:
         #Path to the Script
-        script_path = os.path.join("scripts", "model_merger.py")
+        script_path = os.path.join("llama.cpp", "convert_hf_to_gguf_update.py")
         #Trys running the script and getting the output
         command = f"python {script_path}"
         stream = os.popen(command)
